@@ -97,28 +97,27 @@ def invoice_data_processor(invoice_post_data):
     print(processed_invoice_data)
     return processed_invoice_data
 
-def update_products_from_invoice(invoice_data_processed, request):
-    for item in invoice_data_processed['items']:
-        new_product = False
-        if Product.objects.filter(user=request.user,
-                                  product_name=item['invoice_product'],
-                                  product_hsn=item['invoice_hsn'],
-                                  product_unit=item['invoice_unit'],
-                                  product_gst_percentage=item['invoice_gst_percentage']).exists():
-            product = Product.objects.get(user=request.user,
-                                          product_name=item['invoice_product'],
-                                          product_hsn=item['invoice_hsn'],
-                                          product_unit=item['invoice_unit'],
-                                          product_gst_percentage=item['invoice_gst_percentage'])
-        else:
-            new_product = True
-            product = Product(user=request.user,
-                              product_name=item['invoice_product'],
-                              product_hsn=item['invoice_hsn'],
-                              product_unit=item['invoice_unit'],
-                              product_gst_percentage=item['invoice_gst_percentage'])
-        product.product_rate_with_gst = item['invoice_rate_with_gst']
-        product.save()
+# def update_products_from_invoice(invoice_data_processed, request):
+#     for item in invoice_data_processed['items']:
+#         new_product = False
+#         if Product.objects.filter(
+#                                   product_name=item['invoice_product'],
+#                                   product_hsn=item['invoice_hsn'],
+#                                   product_unit=item['invoice_unit']).exists():
+#             product = Product.objects.get(
+#                                           product_name=item['invoice_product'],
+#                                           product_hsn=item['invoice_hsn'],
+#                                           product_unit=item['invoice_unit'],
+#                                           product_gst_percentage=item['invoice_gst_percentage'])
+#         else:
+#             new_product = True
+#             product = Product(
+#                               product_name=item['invoice_product'],
+#                               product_hsn=item['invoice_hsn'],
+#                               product_unit=item['invoice_unit'],
+#                               product_gst_percentage=item['invoice_gst_percentage'])
+#         product.product_rate = item['invoice_rate_with_gst']
+#         product.save()
 
 
 

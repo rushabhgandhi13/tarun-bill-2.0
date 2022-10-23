@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -46,12 +47,11 @@ class Invoice(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    item_code = models.CharField(max_length=200,null=True, default="-")
     product_name = models.CharField(max_length=200)
     product_hsn = models.CharField(max_length=50, null=True, blank=True)
     product_unit = models.CharField(max_length=50)
-    product_gst_percentage = models.FloatField()
-    product_rate_with_gst = models.FloatField()
+    product_rate = models.FloatField()
     def __str__(self):
         return str(self.product_name)
 

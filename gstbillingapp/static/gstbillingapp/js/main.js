@@ -35,31 +35,38 @@ function update_invoice_totals() {
     });
     $('input[name=invoice-total-amt-without-gst]').val(sum_amt_without_gst.toFixed(2));
 
-    // amount sgst
-    sum_amt_sgst = 0
-    $('input[name=invoice-amt-sgst]').each(function(){
-        sum_amt_sgst += parseFloat($(this).val());
-    });
+    if($('input[name=igstcheck]').is(':checked')){
+       
+        sum_amt_sgst = 0
     $('input[name=invoice-total-amt-sgst]').val(sum_amt_sgst.toFixed(2));
 
     // amount cgst
     sum_amt_cgst = 0
-    $('input[name=invoice-amt-cgst]').each(function(){
-        sum_amt_cgst += parseFloat($(this).val());
-    });
+    $('input[name=invoice-total-amt-cgst]').val(sum_amt_cgst.toFixed(2));
+
+    // amount igst
+    sum_amt_igst = sum_amt_without_gst*0.18
+    $('input[name=invoice-total-amt-igst]').val(sum_amt_igst.toFixed(2));
+
+    }
+
+    else{
+        // amount sgst
+    sum_amt_sgst = sum_amt_without_gst*0.09
+    $('input[name=invoice-total-amt-sgst]').val(sum_amt_sgst.toFixed(2));
+
+    // amount cgst
+    sum_amt_cgst = sum_amt_without_gst*0.09
     $('input[name=invoice-total-amt-cgst]').val(sum_amt_cgst.toFixed(2));
 
     // amount igst
     sum_amt_igst = 0
-    $('input[name=invoice-amt-igst]').each(function(){
-        sum_amt_igst += parseFloat($(this).val());
-    });
     $('input[name=invoice-total-amt-igst]').val(sum_amt_igst.toFixed(2));
 
-    sum_amt_with_gst = 0
-    $('input[name=invoice-amt-with-gst]').each(function(){
-        sum_amt_with_gst += parseFloat($(this).val());
-    });
+    }
+    
+
+    sum_amt_with_gst = sum_amt_without_gst*1.18
     $('input[name=invoice-total-amt-with-gst]').val(sum_amt_with_gst.toFixed(2));
 
 }
@@ -69,7 +76,7 @@ function update_invoice_totals() {
 
 function initialize_auto_calculation(){
     update_amounts($('#invoice-form-items-table-body input[name=invoice-qty]:first'));
-    $('input[name=invoice-qty], input[name=invoice-gst-percentage], input[name=invoice-rate-with-gst]').change(function (){
+    $('input[name=invoice-qty],  input[name=invoice-rate-without-gst]').change(function (){
         update_amounts($(this));
     });
 }
@@ -77,42 +84,40 @@ function initialize_auto_calculation(){
 function update_amounts(element){
     var product = element.parent().parent().find('input[name=invoice-product]').val();
     var qty = parseInt(element.parent().parent().find('input[name=invoice-qty]').val());
-    var rate_with_gst = parseFloat(element.parent().parent().find('input[name=invoice-rate-with-gst]').val());
-    var gst_percentage = parseFloat(element.parent().parent().find('input[name=invoice-gst-percentage]').val());
+    var rate_without_gst = 0
+    rate_without_gst = parseFloat(element.parent().parent().find('input[name=invoice-rate-without-gst]').val());
+    // var gst_percentage = 18/
 
-    var rate_without_gst = (rate_with_gst * 100.0) / (100.0 + gst_percentage);
+    // var rate_without_gst = (rate_with_gst * 100.0) / (100.0 + gst_percentage);
     var amt_without_gst = rate_without_gst * qty;
 
-    var sgst;
-    var cgst;
-    var igst;
+    // var sgst;
+    // var cgst;
+    // var igst;
     if(product == ""){
-        sgst = 0;
-        cgst = 0;
-        igst = 0;
         amt_without_gst = 0;
     }
-    else {
-        if($('input[name=igstcheck]').is(':checked')){
-            sgst = 0;
-            cgst = 0;
-            igst = amt_without_gst * gst_percentage / 100;
-        }
-        else {
-            sgst = amt_without_gst * gst_percentage / 200;
-            cgst = amt_without_gst * gst_percentage / 200;
-            igst = 0;
+    // else {
+    //     if($('input[name=igstcheck]').is(':checked')){
+    //         sgst = 0;
+    //         cgst = 0;
+    //         igst = amt_without_gst * gst_percentage / 100;
+    //     }
+    //     else {
+    //         sgst = amt_without_gst * gst_percentage / 200;
+    //         cgst = amt_without_gst * gst_percentage / 200;
+    //         igst = 0;
 
-        }
-    }
-    var amt_with_gst = amt_without_gst + cgst + sgst + igst;
+    //     }
+    // }
+    // var amt_with_gst = amt_without_gst + cgst + sgst + igst;
 
     element.parent().parent().find('input[name=invoice-rate-without-gst]').val(rate_without_gst.toFixed(2));
     element.parent().parent().find('input[name=invoice-amt-without-gst]').val(amt_without_gst.toFixed(2));
-    element.parent().parent().find('input[name=invoice-amt-sgst]').val(sgst.toFixed(2));
-    element.parent().parent().find('input[name=invoice-amt-cgst]').val(cgst.toFixed(2));
-    element.parent().parent().find('input[name=invoice-amt-igst]').val(igst.toFixed(2));
-    element.parent().parent().find('input[name=invoice-amt-with-gst]').val(amt_with_gst.toFixed(2));
+    // element.parent().parent().find('input[name=invoice-amt-sgst]').val(sgst.toFixed(2));
+    // element.parent().parent().find('input[name=invoice-amt-cgst]').val(cgst.toFixed(2));
+    // element.parent().parent().find('input[name=invoice-amt-igst]').val(igst.toFixed(2));
+    // element.parent().parent().find('input[name=invoice-amt-with-gst]').val(amt_with_gst.toFixed(2));
 
     update_invoice_totals();
 
@@ -206,7 +211,7 @@ var selected_item_input;
 function product_result_to_domstr(result) {
     var domstr = "<div class='product-search-result' data-product='" + JSON.stringify(result) + "'>"+
     "<div>"+ result['product_name'] + "</div>" +
-    "<div>"+ result['product_hsn'] + " | " + result['product_unit'] + " | " + result['product_gst_percentage'] +
+    "<div>"+ result['product_hsn'] + " | " + result['product_unit'] + " | " + result['product_rate'] +
     "</div>";
      return domstr;
 }
@@ -217,7 +222,7 @@ function product_result_click() {
     selected_item_input.val(product_data_json['product_name']);
     selected_item_input.parent().parent().find('input[name=invoice-hsn]').val(product_data_json['product_hsn']);    
     selected_item_input.parent().parent().find('input[name=invoice-unit]').val(product_data_json['product_unit']);    
-    selected_item_input.parent().parent().find('input[name=invoice-rate-with-gst]').val(product_data_json['product_rate_with_gst']);    
+    selected_item_input.parent().parent().find('input[name=invoice-rate-without-gst]').val(product_data_json['product_rate']);    
     selected_item_input.parent().parent().find('input[name=invoice-gst-percentage]').val(product_data_json['product_gst_percentage']);    
 
     // $('#customer-address-input').val(customer_data_json['customer_address']);

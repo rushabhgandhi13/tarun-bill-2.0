@@ -21,7 +21,6 @@ from .models import UserProfile
 
 from .utils import invoice_data_validator
 from .utils import invoice_data_processor
-from .utils import update_products_from_invoice
 
 from .forms import CustomerForm
 from .forms import ProductForm
@@ -161,7 +160,7 @@ def invoice_create(request):
             customer.save()
 
         # save product
-        update_products_from_invoice(invoice_data_processed, request)
+        # update_products_from_invoice(invoice_data_processed, request)
 
 
         # save invoice

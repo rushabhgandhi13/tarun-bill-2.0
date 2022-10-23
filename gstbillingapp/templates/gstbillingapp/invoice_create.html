@@ -81,16 +81,9 @@
 				<th scope="col">HSN / SAC</th>
 				<th scope="col">Unit</th>
 				<th scope="col">Qty</th>
-				<th scope="col">Rate with GST</th>
-				<th scope="col">GST %</th>
-				<th scope="col">Rate without GST</th>
-
-
-				<th scope="col">Amt without GST</th>
-				<th scope="col">SGST</th>
-				<th scope="col">CGST</th>
-				<th scope="col">IGST</th>
-				<th scope="col">Amt with GST</th>
+				<th scope="col">Rate</th>
+				<th scope="col">Amt</th>
+				
 
 			</tr>
 		</thead>
@@ -101,25 +94,30 @@
 				<td class="form-input-td"><input name="invoice-hsn" type="text" class="form-control" placeholder="HSN"></td>
 				<td class="form-input-td"><input name="invoice-unit" type="text" class="form-control" placeholder="Unit"></td>
 				<td class="form-input-td"><input name="invoice-qty" type="number" step="any" class="form-control" placeholder="Qty"></td>
-				<td class="form-input-td"><input name="invoice-rate-with-gst" type="number" step="any" class="form-control" placeholder="Rate with GST"></td>
-				<td class="form-input-td"><input name="invoice-gst-percentage" type="number" step="any" class="form-control" placeholder="GST %"></td>
-
-
-				<td class="form-input-td"><input name="invoice-rate-without-gst" type="number" step="any" class="form-control" placeholder="Rate without GST" readonly></td>
-				<td class="form-input-td"><input name="invoice-amt-without-gst" type="number" step="any" class="form-control" readonly></td>
-				<td class="form-input-td"><input name="invoice-amt-sgst" type="number" step="any" class="form-control" readonly></td>
-				<td class="form-input-td"><input name="invoice-amt-cgst" type="number" step="any" class="form-control" readonly></td>
-				<td class="form-input-td"><input name="invoice-amt-igst" type="number" step="any" class="form-control" readonly></td>
-				<td class="form-input-td"><input name="invoice-amt-with-gst" type="number" step="any" class="form-control" readonly></td>
+				<td class="form-input-td"><input name="invoice-rate-without-gst" type="number" step="any" class="form-control" placeholder="Rate" ></td>
+				<td class="form-input-td"><input name="invoice-amt-without-gst" type="number" step="any" class="form-control" placeholder="Amount" readonly></td>
+				
 			</tr>
 		</tbody>
 
 		<tr>
-			<td colspan="8" class="text-right"><strong>TOTAL:</strong></td>
+			<td colspan="6" class="text-right"><strong>TOTAL:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-without-gst" type="number" step="any" class="form-control" readonly></td>
+		</tr>
+		<tr>
+			<td colspan="6" class="text-right"><strong>SGST:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-sgst" type="number" step="any" class="form-control" readonly></td>
+		</tr>
+		<tr>
+			<td colspan="6" class="text-right"><strong>CGST:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-cgst" type="number" step="any" class="form-control" readonly></td>
+		</tr>
+		<tr>
+			<td colspan="6" class="text-right"><strong>IGST:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-igst" type="number" step="any" class="form-control" readonly></td>
+		</tr>
+		<tr>
+			<td colspan="6" class="text-right"><strong>TOTAL:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-with-gst" type="number" step="any" class="form-control" readonly></td>
 		</tr>
 
