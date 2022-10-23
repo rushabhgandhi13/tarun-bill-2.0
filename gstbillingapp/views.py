@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-from .models import Customer
+from .models import Customer, Place_of_supply, Transporter_info, Vehicle
 from .models import Invoice
 from .models import Product
 from .models import UserProfile
@@ -21,7 +21,6 @@ from .models import UserProfile
 
 from .utils import invoice_data_validator
 from .utils import invoice_data_processor
-
 from .forms import CustomerForm
 from .forms import ProductForm
 from .forms import UserProfileForm
@@ -118,6 +117,9 @@ def invoice_create(request):
         context['default_invoice_number'] += 1
 
     context['default_invoice_date'] = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
+    context['place_of_supply']= Place_of_supply.objects.all()
+    context['transporter']= Transporter_info.objects.all()
+    context['vehicles']= Vehicle.objects.all()
 
     if request.method == 'POST':
         print("POST received - Invoice Data")

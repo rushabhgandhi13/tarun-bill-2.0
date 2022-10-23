@@ -30,18 +30,43 @@ class Customer(models.Model):
     def __str__(self):
         return self.customer_name
 
+class Place_of_supply(models.Model):
+    state=models.CharField(max_length=100)
+    code=models.CharField(max_length=100)
+    def __str__(self):
+        return self.state + " / " + self.code
+
+class Financial_year(models.Model):
+    year=models.CharField(max_length=50)
+    def __str__(self):
+        return self.year
+
+class Transporter_info(models.Model):
+    transporter=models.CharField(max_length=150)
+    def __str__(self):
+        return self.transporter
+
+class Vehicle(models.Model):
+    name= models.CharField(max_length=100)
+    vehicle_number = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name +" | "+ self.vehicle_number
 
 class Invoice(models.Model):
     invoice_number = models.IntegerField()
     invoice_date = models.DateField()
+    # order_number = models.IntegerField()
+    # order_date = models.DateField()
+    # cartons = models.IntegerField()
+    # bundles = models.IntegerField()
+    
     invoice_customer = models.ForeignKey(
         'Customer',
         on_delete=models.SET_NULL,
         null=True
     )
     invoice_json = models.TextField()
-    inventory_reflected = models.BooleanField(default=True)
-    books_reflected = models.BooleanField(default=True)
+    
     def __str__(self):
         return str(self.invoice_number) + " | " + str(self.invoice_date)
 

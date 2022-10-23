@@ -24,6 +24,12 @@
 				<th scope="row">Date</th>
 				<td class="form-input-td"><input name="invoice-date" type="date" class="form-control", value="{{default_invoice_date}}"></td>
 			</tr>
+			<tr>
+				<th scope="row">Order Number</th>
+				<td class="form-input-td"><input name="order-number" type="text" class="form-control" placeholder="Order Number" ></td>
+				<th scope="row">Order Date</th>
+				<td class="form-input-td"><input name="order-date" type="date" class="form-control"></td>
+			</tr>
 		</tbody>
 	</table>
 
@@ -48,7 +54,26 @@
 				<th scope="row">Customer GST</th>
 				<td class="form-input-td"><input autocomplete="off" name="customer-gst" type="text" class="form-control" id="customer-gst-input" placeholder="Customer GST" maxlength="15" pattern="([A-Za-z0-9]{15})|(^$)"></td>
 			</tr>
-
+			<tr>
+				<th scope="row">Place of Supply</th>
+				<td class="form-input-td customer_search_area">
+					<input list="places" name="place-of-supply" class="form-control" id="place-of-supply" placeholder="Place of Supply" required>
+					<datalist id="places">	
+						{% for place in place_of_supply %}
+    						<option value="{{ place }}">{{ place }}</option>
+						{% endfor %} 
+					</datalist>
+				</td>
+				<th scope="row">Transporter Info</th>
+				<td class="form-input-td">
+					<input list="transport" name="transporter" type="text" class="form-control" id="transporter" placeholder="Transporter" required>
+					<datalist id="transport">
+						{% for t in transporter %}
+    						<option value="{{ t }}">{{ t }}</option>
+						{% endfor %} 
+					</datalist>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 
@@ -56,7 +81,14 @@
 		<tbody class="two-col-form">
 			<tr>
 				<th scope="row">Vehicle Number</th>
-				<td class="form-input-td"><input autocomplete="off" name="vehicle-number" type="text" class="form-control" placeholder="Vehicle Number">
+				<td class="form-input-td">
+					<input list="vehiclelist" autocomplete="off" name="vehicle-number" type="text" class="form-control" placeholder="Vehicle Number">
+					<datalist id="vehiclelist">
+						{% for v in vehicles %}
+    						<option value="{{ v.vehicle_number }}">{{ v }}</option>
+						{% endfor %} 
+					</datalist>
+				
 				</td>
 				<th scope="row"></th>
 				<td class="form-input-td">
@@ -67,6 +99,14 @@
 						</label>
 					</div>
 				</td>
+			</tr>
+			<tr>
+				<th scope="row">Cartons</th>
+				<td class="form-input-td"><input name="cartons" type="number" class="form-control" placeholder="Cartons" value="1"></td>
+				
+				<th scope="row">Bundles</th>
+				<td class="form-input-td"><input name="bundles" type="number" class="form-control" placeholder="Bundles" value="0" ></td>
+				
 			</tr>
 		</tbody>
 	</table>
