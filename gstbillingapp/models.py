@@ -25,7 +25,6 @@ class UserProfile(models.Model):
 class Customer(models.Model):
     customer_name = models.CharField(max_length=200)
     customer_address = models.TextField(max_length=600, blank=True, null=True)
-    customer_phone = models.CharField(max_length=14, blank=True, null=True)
     customer_gst = models.CharField(max_length=15, blank=True, null=True)
     def __str__(self):
         return self.customer_name
@@ -55,10 +54,6 @@ class Vehicle(models.Model):
 class Invoice(models.Model):
     invoice_number = models.IntegerField()
     invoice_date = models.DateField()
-    # order_number = models.IntegerField()
-    # order_date = models.DateField()
-    # cartons = models.IntegerField()
-    # bundles = models.IntegerField()
     
     invoice_customer = models.ForeignKey(
         'Customer',

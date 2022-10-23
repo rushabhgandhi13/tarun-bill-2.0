@@ -7,7 +7,7 @@ from .models import UserProfile
 class CustomerForm(ModelForm):
      class Meta:
          model = Customer
-         fields = ['customer_name', 'customer_address', 'customer_phone', 'customer_gst']
+         fields = ['customer_name', 'customer_address', 'customer_gst']
 
 
 class ProductForm(ModelForm):

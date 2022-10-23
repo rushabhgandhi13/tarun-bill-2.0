@@ -139,16 +139,13 @@ def invoice_create(request):
         customer = None
 
         try:
-            customer = Customer.objects.get(user=request.user,
-                                            customer_name=invoice_data['customer-name'],
+            customer = Customer.objects.get(customer_name=invoice_data['customer-name'],
                                             customer_address=invoice_data['customer-address'],
-                                            customer_phone=invoice_data['customer-phone'],
                                             customer_gst=invoice_data['customer-gst'])
         except:
             print("===============> customer not found")
             print(invoice_data['customer-name'])
             print(invoice_data['customer-address'])
-            print(invoice_data['customer-phone'])
             print(invoice_data['customer-gst'])
 
         if not customer:
@@ -156,7 +153,6 @@ def invoice_create(request):
             customer = Customer(
                 customer_name=invoice_data['customer-name'],
                 customer_address=invoice_data['customer-address'],
-                customer_phone=invoice_data['customer-phone'],
                 customer_gst=invoice_data['customer-gst'])
             # create customer book
             customer.save()

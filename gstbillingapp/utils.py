@@ -36,9 +36,6 @@ def invoice_data_validator(invoice_data):
         print("Error: Incorrect Customer Address")
         return "Error: Incorrect Customer Address"
 
-    if len(invoice_data['customer-phone']) > 14:
-        print("Error: Incorrect Customer Phone")
-        return "Error: Incorrect Customer Phone"
     if len(invoice_data['customer-gst']) != 15 and len(invoice_data['customer-gst']) != 0:
         print("Error: Incorrect Customer GST")
         return "Error: Incorrect Customer GST"
@@ -56,7 +53,6 @@ def invoice_data_processor(invoice_post_data):
 
     processed_invoice_data['customer_name'] = invoice_post_data['customer-name']
     processed_invoice_data['customer_address'] = invoice_post_data['customer-address']
-    processed_invoice_data['customer_phone'] = invoice_post_data['customer-phone']
     processed_invoice_data['customer_gst'] = invoice_post_data['customer-gst']
     processed_invoice_data['place_of_supply'] = invoice_post_data['place-of-supply']
     processed_invoice_data['transporter'] = invoice_post_data['transporter']

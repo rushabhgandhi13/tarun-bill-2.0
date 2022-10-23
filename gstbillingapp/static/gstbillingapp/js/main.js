@@ -137,7 +137,6 @@ function customer_result_to_domstr(result) {
     var domstr = "<div class='customer-search-result' data-customer='" + JSON.stringify(result) + "'>"+
     "<div>"+ result['customer_name'] + "</div>" +
     "<div>"+ result['customer_address'] + "</div>" +
-    "<div>"+ result['customer_phone'] + "</div>" +
     "<div>"+ result['customer_gst'] + "</div>" +
     "</div>";
      return domstr;
@@ -148,7 +147,6 @@ function customer_result_click() {
     customer_data_json = JSON.parse($(this).attr('data-customer'));
     $('#customer-name-input').val(customer_data_json['customer_name']);
     $('#customer-address-input').val(customer_data_json['customer_address']);
-    $('#customer-phone-input').val(customer_data_json['customer_phone']);
     $('#customer-gst-input').val(customer_data_json['customer_gst']);
 }
 

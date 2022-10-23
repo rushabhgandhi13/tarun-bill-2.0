@@ -19,7 +19,6 @@
 		<tr>
 			<th>Customer Name</th>
 			<th>Address</th>
-			<th>Phone</th>
 			<th>GST NO</th>
 			<th></th>
 			<th></th>
@@ -30,7 +29,6 @@
 		<tr>
 			<td>{{customer.customer_name}}</td>
 			<td>{{customer.customer_address}}</td>
-			<td>{{customer.customer_phone}}</td>
 			<td>{{customer.customer_gst}}</td>
 			<td><a href="{% url 'customer_edit' customer.id %}"><button type="button" class="btn btn-dark">Edit</button></a></td>
 			<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#customerDeleteModal" data-customer-id="{{customer.id}}" data-customer-name="{{customer.customer_name}}">Delete</button></td>
