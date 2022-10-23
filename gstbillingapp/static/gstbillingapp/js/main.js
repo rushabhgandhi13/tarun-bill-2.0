@@ -33,6 +33,11 @@ function update_invoice_totals() {
     $('input[name=invoice-amt-without-gst]').each(function(){
         sum_amt_without_gst += parseFloat($(this).val());
     });
+
+    $('input[name=invoice-freight-charges]').each(function(){
+        sum_amt_without_gst += parseFloat($(this).val());
+    });
+
     $('input[name=invoice-total-amt-without-gst]').val(sum_amt_without_gst.toFixed(2));
 
     if($('input[name=igstcheck]').is(':checked')){
@@ -76,7 +81,7 @@ function update_invoice_totals() {
 
 function initialize_auto_calculation(){
     update_amounts($('#invoice-form-items-table-body input[name=invoice-qty]:first'));
-    $('input[name=invoice-qty],  input[name=invoice-rate-without-gst]').change(function (){
+    $('input[name=invoice-qty],  input[name=invoice-rate-without-gst], input[name=invoice-freight-charges]').change(function (){
         update_amounts($(this));
     });
 }
@@ -85,6 +90,7 @@ function update_amounts(element){
     var product = element.parent().parent().find('input[name=invoice-product]').val();
     var qty = parseInt(element.parent().parent().find('input[name=invoice-qty]').val());
     var rate_without_gst = 0
+    // var freight = 0
     rate_without_gst = parseFloat(element.parent().parent().find('input[name=invoice-rate-without-gst]').val());
     // var gst_percentage = 18/
 
@@ -113,6 +119,7 @@ function update_amounts(element){
     // var amt_with_gst = amt_without_gst + cgst + sgst + igst;
 
     element.parent().parent().find('input[name=invoice-rate-without-gst]').val(rate_without_gst.toFixed(2));
+    // element.parent().parent().find('input[name=invoice-freight-charges]').val(freight.toFixed(2));
     element.parent().parent().find('input[name=invoice-amt-without-gst]').val(amt_without_gst.toFixed(2));
     // element.parent().parent().find('input[name=invoice-amt-sgst]').val(sgst.toFixed(2));
     // element.parent().parent().find('input[name=invoice-amt-cgst]').val(cgst.toFixed(2));
@@ -223,7 +230,7 @@ function product_result_click() {
     selected_item_input.parent().parent().find('input[name=invoice-hsn]').val(product_data_json['product_hsn']);    
     selected_item_input.parent().parent().find('input[name=invoice-unit]').val(product_data_json['product_unit']);    
     selected_item_input.parent().parent().find('input[name=invoice-rate-without-gst]').val(product_data_json['product_rate']);    
-    selected_item_input.parent().parent().find('input[name=invoice-gst-percentage]').val(product_data_json['product_gst_percentage']);    
+    selected_item_input.parent().parent().find('input[name=invoice-item-code]').val(product_data_json['item_code']);    
 
     // $('#customer-address-input').val(customer_data_json['customer_address']);
     // $('#customer-phone-input').val(customer_data_json['customer_phone']);
@@ -278,7 +285,7 @@ function initialize_fuse_products () {
             maxPatternLength: 32,
             minMatchCharLength: 1,
             keys: [
-            "product_name",
+            "product_name","item_code"
             ]
         };
         fuse_products = new Fuse(data, fuse_product_options);

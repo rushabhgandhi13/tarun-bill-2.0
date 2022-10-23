@@ -78,6 +78,7 @@
 			<tr>
 				<th scope="col">Sl No.</th>
 				<th scope="col">Product</th>
+				<th scope="col">Item code</th>
 				<th scope="col">HSN / SAC</th>
 				<th scope="col">Unit</th>
 				<th scope="col">Qty</th>
@@ -91,6 +92,7 @@
 			<tr>
 				<td class="invoice-item-slno">1</td>
 				<td class="form-input-td"><input name="invoice-product" type="text" class="form-control product_search_area product_search_input" placeholder="Product"></td>
+				<td class="form-input-td"><input name="invoice-item-code" type="text" class="form-control" placeholder="Item Code"></td>
 				<td class="form-input-td"><input name="invoice-hsn" type="text" class="form-control" placeholder="HSN"></td>
 				<td class="form-input-td"><input name="invoice-unit" type="text" class="form-control" placeholder="Unit"></td>
 				<td class="form-input-td"><input name="invoice-qty" type="number" step="any" class="form-control" placeholder="Qty"></td>
@@ -101,23 +103,24 @@
 		</tbody>
 
 		<tr>
-			<td colspan="6" class="text-right"><strong>TOTAL:</strong></td>
+			<td colspan="7" class="text-right"><strong>Freight Charges:</strong></td>
+			<td class="form-input-td"><input name="invoice-freight-charges" type="number" step="any" class="form-control" value="0"></td>
+		</tr>
+		<tr>
+			<td colspan="7" class="text-right"><strong>TOTAL:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-without-gst" type="number" step="any" class="form-control" readonly></td>
 		</tr>
 		<tr>
-			<td colspan="6" class="text-right"><strong>SGST:</strong></td>
+			<td colspan="1" class="text-right"><strong>SGST:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-sgst" type="number" step="any" class="form-control" readonly></td>
-		</tr>
-		<tr>
-			<td colspan="6" class="text-right"><strong>CGST:</strong></td>
+		
+			<td colspan="1" class="text-right"><strong>CGST:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-cgst" type="number" step="any" class="form-control" readonly></td>
-		</tr>
-		<tr>
-			<td colspan="6" class="text-right"><strong>IGST:</strong></td>
+		
+			<td colspan="1" class="text-right"><strong>IGST:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-igst" type="number" step="any" class="form-control" readonly></td>
-		</tr>
-		<tr>
-			<td colspan="6" class="text-right"><strong>TOTAL:</strong></td>
+		
+			<td colspan="1" class="text-right"><strong>GRAND TOTAL:</strong></td>
 			<td class="form-input-td"><input name="invoice-total-amt-with-gst" type="number" step="any" class="form-control" readonly></td>
 		</tr>
 

@@ -18,6 +18,7 @@
 			<thead>
 				<tr>
 					<th>Product Name</th>
+					<th>Item code</th>
 					<th>HSN</th>
 					<th>Rate With GST</th>
 					<th>GST %</th>
@@ -29,6 +30,7 @@
 				{% for product in products %}
 				<tr>
 	 				<td>{{product.product_name}}</td>
+	 				<td>{{product.item_code}}</td>
 	 				<td>{{product.product_hsn}}</td>
 	 				<td>{{product.product_rate}}</td>
 	 				{% comment %} <td>{{product.product_gst_percentage}}</td> {% endcomment %}
