@@ -51,13 +51,19 @@ def invoice_data_processor(invoice_post_data):
 
     processed_invoice_data['invoice_number'] = invoice_post_data['invoice-number']
     processed_invoice_data['invoice_date'] = invoice_post_data['invoice-date']
+    processed_invoice_data['order_number'] = invoice_post_data['order-number']
+    processed_invoice_data['order_date'] = invoice_post_data['order-date']
 
     processed_invoice_data['customer_name'] = invoice_post_data['customer-name']
     processed_invoice_data['customer_address'] = invoice_post_data['customer-address']
     processed_invoice_data['customer_phone'] = invoice_post_data['customer-phone']
     processed_invoice_data['customer_gst'] = invoice_post_data['customer-gst']
+    processed_invoice_data['place_of_supply'] = invoice_post_data['place-of-supply']
+    processed_invoice_data['transporter'] = invoice_post_data['transporter']
 
     processed_invoice_data['vehicle_number'] = invoice_post_data['vehicle-number']
+    processed_invoice_data['cartons'] = invoice_post_data['cartons']
+    processed_invoice_data['bundles'] = invoice_post_data['bundles']
 
     if 'igstcheck' in  invoice_post_data:
         processed_invoice_data['igstcheck'] = True
@@ -71,6 +77,8 @@ def invoice_data_processor(invoice_post_data):
     processed_invoice_data['invoice_total_amt_igst'] = float(invoice_post_data['invoice-total-amt-igst'])
     processed_invoice_data['invoice_total_amt_with_gst'] = float(invoice_post_data['invoice-total-amt-with-gst'])
 
+    processed_invoice_data['invoice_freight_charges'] = float(invoice_post_data['invoice-freight-charges'])
+
 
     invoice_post_data = dict(invoice_post_data)
     for idx, product in enumerate(invoice_post_data['invoice-product']):
@@ -81,16 +89,15 @@ def invoice_data_processor(invoice_post_data):
             item_entry['invoice_hsn'] = invoice_post_data['invoice-hsn'][idx]
             item_entry['invoice_unit'] = invoice_post_data['invoice-unit'][idx]
             item_entry['invoice_qty'] = int(invoice_post_data['invoice-qty'][idx])
-            item_entry['invoice_rate_with_gst'] = float(invoice_post_data['invoice-rate-with-gst'][idx])
-            item_entry['invoice_gst_percentage'] = float(invoice_post_data['invoice-gst-percentage'][idx])
+            # item_entry['invoice_gst_percentage'] = float(invoice_post_data['invoice-gst-percentage'][idx])
 
             item_entry['invoice_rate_without_gst'] = float(invoice_post_data['invoice-rate-without-gst'][idx])
             item_entry['invoice_amt_without_gst'] = float(invoice_post_data['invoice-amt-without-gst'][idx])
 
-            item_entry['invoice_amt_sgst'] = float(invoice_post_data['invoice-amt-sgst'][idx])
-            item_entry['invoice_amt_cgst'] = float(invoice_post_data['invoice-amt-cgst'][idx])
-            item_entry['invoice_amt_igst'] = float(invoice_post_data['invoice-amt-igst'][idx])
-            item_entry['invoice_amt_with_gst'] = float(invoice_post_data['invoice-amt-with-gst'][idx])
+            # item_entry['invoice_amt_sgst'] = float(invoice_post_data['invoice-amt-sgst'][idx])
+            # item_entry['invoice_amt_cgst'] = float(invoice_post_data['invoice-amt-cgst'][idx])
+            # item_entry['invoice_amt_igst'] = float(invoice_post_data['invoice-amt-igst'][idx])
+            # item_entry['invoice_amt_with_gst'] = float(invoice_post_data['invoice-amt-with-gst'][idx])
 
             processed_invoice_data['items'].append(item_entry)
 
