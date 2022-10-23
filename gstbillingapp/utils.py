@@ -82,6 +82,7 @@ def invoice_data_processor(invoice_post_data):
             print(idx, product)
             item_entry = {}
             item_entry['invoice_product'] = product
+            item_entry['invoice_itemcode'] = invoice_post_data['invoice-item-code'][idx]
             item_entry['invoice_hsn'] = invoice_post_data['invoice-hsn'][idx]
             item_entry['invoice_unit'] = invoice_post_data['invoice-unit'][idx]
             item_entry['invoice_qty'] = int(invoice_post_data['invoice-qty'][idx])

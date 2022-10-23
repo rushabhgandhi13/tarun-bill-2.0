@@ -219,7 +219,7 @@ tr:hover .cut { opacity: 1; }
                     {% for item in invoice_data.items %}
 					<tr>
 						<td style="width: 5%;" ><span contenteditable>{{forloop.counter}}</span></td>
-                        <td style="width: 50%;"><span contenteditable>Item code:{{item.name.item_code}}<br>{{ item.invoice_product }}</span></td>
+                        <td style="width: 50%;"><span contenteditable>Item code:{{item.invoice_itemcode}}<br>{{ item.invoice_product }}</span></td>
                         <td style="width: 8%;"><span contenteditable>{{item.invoice_hsn}}</span></td>
                         <td style="width: 8%;"><span contenteditable>{{item.invoice_qty}}</span></td>
                         <td ><span contenteditable>{{item.invoice_rate_without_gst}}</span></td>
