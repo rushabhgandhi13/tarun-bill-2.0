@@ -1,4 +1,5 @@
 import datetime
+import decimal
 import json
 import num2words
 
@@ -186,6 +187,29 @@ def invoices(request):
 
 @login_required
 def invoice_viewer(request, invoice_id):
+    def num2words(num):
+        num = decimal.Decimal(num)
+        decimal_part = num - int(num)
+        num = int(num)
+
+        if decimal_part:
+            return num2words(num) + " And Paise " + (" ".join(num2words(i) for i in str(decimal_part)[2:]))
+
+        under_20 = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+        tens = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+        above_100 = {100: 'Hundred', 1000: 'Thousand', 100000: 'Lakhs', 10000000: 'Crores'}
+
+        if num < 20:
+            return under_20[num]
+
+        if num < 100:
+            return tens[num // 10 - 2] + ('' if num % 10 == 0 else ' ' + under_20[num % 10])
+
+        # find the appropriate pivot - 'Million' in 3,603,550, or 'Thousand' in 603,550
+        pivot = max([key for key in above_100.keys() if key <= num])
+
+        return num2words(num // pivot) + ' ' + above_100[pivot] + ('' if num % pivot==0 else ' ' + num2words(num % pivot))
+
     invoice_obj = get_object_or_404(Invoice, id=invoice_id)
 
     context = {}
@@ -193,9 +217,10 @@ def invoice_viewer(request, invoice_id):
     context['invoice_data'] = json.loads(invoice_obj.invoice_json)
     print(context['invoice_data'])
     context['currency'] = "₹"
-    context['total_in_words'] = num2words.num2words(int(context['invoice_data']['invoice_total_amt_with_gst']), lang='en_IN').title()
+    context["total_cartons"] = int(context['invoice_data']['cartons'])+int(context['invoice_data']['bundles'])
+    context['total_in_words'] = num2words(format(float(context['invoice_data']['invoice_total_amt_with_gst']), '.2f'))
     context['user_profile'] = user_profile
-    return render(request, 'gstbillingapp/invoice_printer.html', context)
+    return render(request, 'gstbillingapp/tax_invoice_template.html', context)
 
 
 @login_required
