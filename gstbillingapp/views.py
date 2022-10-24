@@ -150,7 +150,7 @@ def generate_PDF(request, id):
     innumber = invoice_obj.invoice_number
     pdf = pdfkit.from_url(request.build_absolute_uri(reverse('invoice_viewer', args=[id])), False)#,configuration=pdfkit_config
     response = HttpResponse(pdf,content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="invoice-{innumber}.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="invoice-{innumber}-tarun.pdf"'
    
     return response
 
@@ -168,6 +168,23 @@ def generate_invoice(request, id):
     pdf = pdfkit.from_url(request.build_absolute_uri(reverse('invoice_scanned', args=[id])), False)#,configuration=pdfkit_config
     response = HttpResponse(pdf,content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="invoice-{innumber}.pdf"'
+   
+    return response
+
+def generate_challan(request, id):
+    # Use False instead of output path to save pdf to a variable
+
+    # comment the next three lines for running in windows
+    # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
+    # stdout=subprocess.PIPE).communicate()[0].strip()
+    # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+    # comment config=pdf_config when running on local machine------
+    # also tweek the secret key in settings.py to run on local machine
+    invoice_obj = get_object_or_404(Invoice, id=id)
+    innumber = invoice_obj.invoice_number
+    pdf = pdfkit.from_url(request.build_absolute_uri(reverse('challan_viewer', args=[id])), False)#,configuration=pdfkit_config
+    response = HttpResponse(pdf,content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="challan-{innumber}.pdf"'
    
     return response
     
@@ -247,6 +264,41 @@ def invoice_scanned(request, invoice_id):
     context["total_cartons"] = int(context['invoice_data']['cartons'])+int(context['invoice_data']['bundles'])
     context['total_in_words'] = num2words(format(float(context['invoice_data']['invoice_total_amt_with_gst']), '.2f'))
     return render(request, 'gstbillingapp/invoice_signed.html', context)
+
+def challan_viewer(request, invoice_id):
+    def num2words(num):
+        num = decimal.Decimal(num)
+        decimal_part = num - int(num)
+        num = int(num)
+
+        if decimal_part:
+            return num2words(num) + " And Paise " + (" ".join(num2words(i) for i in str(decimal_part)[2:]))
+
+        under_20 = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+        tens = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+        above_100 = {100: 'Hundred', 1000: 'Thousand', 100000: 'Lakhs', 10000000: 'Crores'}
+
+        if num < 20:
+            return under_20[num]
+
+        if num < 100:
+            return tens[num // 10 - 2] + ('' if num % 10 == 0 else ' ' + under_20[num % 10])
+
+        # find the appropriate pivot - 'Million' in 3,603,550, or 'Thousand' in 603,550
+        pivot = max([key for key in above_100.keys() if key <= num])
+
+        return num2words(num // pivot) + ' ' + above_100[pivot] + ('' if num % pivot==0 else ' ' + num2words(num % pivot))
+
+    invoice_obj = get_object_or_404(Invoice, id=invoice_id)
+
+    context = {}
+    context['invoice'] = invoice_obj
+    context['invoice_data'] = json.loads(invoice_obj.invoice_json)
+    print(context['invoice_data'])
+    context['currency'] = "₹"
+    context["total_cartons"] = int(context['invoice_data']['cartons'])+int(context['invoice_data']['bundles'])
+    context['total_in_words'] = num2words(format(float(context['invoice_data']['invoice_total_amt_with_gst']), '.2f'))
+    return render(request, 'gstbillingapp/challan_template.html', context)
 
 
 @login_required
