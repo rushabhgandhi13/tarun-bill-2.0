@@ -62,6 +62,7 @@
 					</datalist>
 				</td>
 			</tr>
+			
 
 			<tr>
 				<th scope="row">Place of Supply</th>
@@ -79,6 +80,17 @@
 					<datalist id="transport">
 						{% for t in transporter %}
     						<option value="{{ t }}">{{ t }}</option>
+						{% endfor %} 
+					</datalist>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">Payment Terms</th>
+				<td class="form-input-td">
+					<input list="payemnt_term" name="payment-terms" class="form-control" id="payment-terms" placeholder="Payment terms" required>
+					<datalist id="payemnt_term">	
+						{% for p in payment_terms %}
+    						<option value="{{ p }}">{{ p }}</option>
 						{% endfor %} 
 					</datalist>
 				</td>
@@ -140,7 +152,7 @@
 		<tbody id="invoice-form-items-table-body">
 			<tr>
 				<td class="invoice-item-slno">1</td>
-				<td class="form-input-td"><input name="invoice-product" type="text" class="form-control product_search_area product_search_input" placeholder="Product"></td>
+				<td class="form-input-td"><input autocomplete="off" name="invoice-product" type="text" class="form-control product_search_area product_search_input" placeholder="Product"></td>
 				<td class="form-input-td"><input name="invoice-item-code" type="text" class="form-control" placeholder="Item Code"></td>
 				<td class="form-input-td"><input name="invoice-hsn" type="text" class="form-control" placeholder="HSN"></td>
 				<td class="form-input-td"><input name="invoice-unit" type="text" class="form-control" placeholder="Unit"></td>

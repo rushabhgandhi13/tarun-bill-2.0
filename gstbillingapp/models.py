@@ -45,6 +45,11 @@ class Transporter_info(models.Model):
     def __str__(self):
         return self.transporter
 
+class Payment_terms(models.Model):
+    payment_term=models.CharField(max_length=150)
+    def __str__(self):
+        return self.payment_term
+
 class Vehicle(models.Model):
     name= models.CharField(max_length=100)
     vehicle_number = models.CharField(max_length=100)
