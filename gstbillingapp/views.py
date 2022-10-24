@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-from .models import Customer, Place_of_supply, Transporter_info, Vehicle
+from .models import Customer, Financial_year, Place_of_supply, Transporter_info, Vehicle
 from .models import Invoice
 from .models import Product
 from .models import UserProfile
@@ -121,6 +121,7 @@ def invoice_create(request):
     context['place_of_supply']= Place_of_supply.objects.all()
     context['transporter']= Transporter_info.objects.all()
     context['vehicles']= Vehicle.objects.all()
+    context['financial_year']= Financial_year.objects.all()
 
     if request.method == 'POST':
         print("POST received - Invoice Data")

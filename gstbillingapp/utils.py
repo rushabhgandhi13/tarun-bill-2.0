@@ -54,6 +54,7 @@ def invoice_data_processor(invoice_post_data):
     processed_invoice_data['customer_name'] = invoice_post_data['customer-name']
     processed_invoice_data['customer_address'] = invoice_post_data['customer-address']
     processed_invoice_data['customer_gst'] = invoice_post_data['customer-gst']
+    processed_invoice_data['financial_year'] = invoice_post_data['financial-year']
     processed_invoice_data['place_of_supply'] = invoice_post_data['place-of-supply']
     processed_invoice_data['transporter'] = invoice_post_data['transporter']
 

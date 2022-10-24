@@ -52,7 +52,17 @@
 				
 				<th scope="row">Customer GST</th>
 				<td class="form-input-td"><input autocomplete="off" name="customer-gst" type="text" class="form-control" id="customer-gst-input" placeholder="Customer GST" maxlength="15" pattern="([A-Za-z0-9]{15})|(^$)"></td>
+				<th scope="row">Financial year</th>
+				<td class="form-input-td">
+					<input list="f_year" name="financial-year" class="form-control" id="financial-year" placeholder="Financial Year" required>
+					<datalist id="f_year">	
+						{% for y in financial_year %}
+    						<option value="{{ y }}">{{ y }}</option>
+						{% endfor %} 
+					</datalist>
+				</td>
 			</tr>
+
 			<tr>
 				<th scope="row">Place of Supply</th>
 				<td class="form-input-td">
