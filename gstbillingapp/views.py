@@ -17,39 +17,22 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import Customer, Financial_year, Payment_terms, Place_of_supply, Transporter_info, Vehicle
 from .models import Invoice
 from .models import Product
-from .models import UserProfile
 
 
 from .utils import invoice_data_validator
 from .utils import invoice_data_processor
 from .forms import CustomerForm
 from .forms import ProductForm
-from .forms import UserProfileForm
 
 # Create your views here.
 
 
 # User Management =====================================
 
-@login_required
-def user_profile_edit(request):
-    context = {}
-    user_profile = get_object_or_404(UserProfile, user=request.user)
-    context['user_profile_form'] = UserProfileForm(instance=user_profile)
-    
-    if request.method == "POST":
-        user_profile_form = UserProfileForm(request.POST, instance=user_profile)
-        user_profile_form.save()
-        return redirect('user_profile')
-    return render(request, 'gstbillingapp/user_profile_edit.html', context)
 
 
-@login_required
-def user_profile(request):
-    context = {}
-    user_profile = get_object_or_404(UserProfile, user=request.user)
-    context['user_profile'] = user_profile
-    return render(request, 'gstbillingapp/user_profile.html', context)
+
+
 
 
 def login_view(request):

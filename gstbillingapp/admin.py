@@ -4,9 +4,7 @@ from django.contrib import admin
 from .models import Customer, Financial_year, Payment_terms, Place_of_supply, Transporter_info, Vehicle
 from .models import Invoice
 from .models import Product
-from .models import UserProfile
 
-admin.site.register(UserProfile)
 
 admin.site.register(Customer)
 admin.site.register(Invoice)
