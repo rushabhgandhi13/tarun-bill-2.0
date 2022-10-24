@@ -216,7 +216,7 @@ var selected_item_input;
 function product_result_to_domstr(result) {
     var domstr = "<div class='product-search-result' data-product='" + JSON.stringify(result) + "'>"+
     "<div>"+ result['product_name'] + "</div>" +
-    "<div>"+ result['product_hsn'] + " | " + result['product_unit'] + " | " + result['product_rate'] +
+    "<div>"+ result['item_code'] + " | " + result['product_hsn'] + " | Rs." + result['product_rate'] +
     "</div>";
      return domstr;
 }

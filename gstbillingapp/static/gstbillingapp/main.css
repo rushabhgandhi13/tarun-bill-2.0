@@ -41,12 +41,12 @@ input.form-control[type=number] {
 #customer_search_bar, #product_search_bar {
 	display: none;
 	background: #f9f9f9;
-	width: 20em;
-	height: 100%;
-	position: absolute;
-	right: 0;
-	top: 0;
-	box-shadow: 0em 0em 1em #111;
+	width: 25em;
+	height: 200px;
+	position: relative;
+	/* right: 0;
+	top: 0; */
+	box-shadow: 0em 0em 1em #111; 
 	padding: 0.2em;
 }
 

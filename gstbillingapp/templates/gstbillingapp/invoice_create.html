@@ -44,6 +44,7 @@
 			<tr>
 				<th scope="row">Customer Name</th>
 				<td class="form-input-td customer_search_area"><input autocomplete="off" name="customer-name" type="text" class="form-control customer_search_input" id="customer-name-input" placeholder="Customer Name" required>
+					<div id="customer_search_bar" style="overflow: scroll;"></div>
 				</td>
 				<th scope="row">Customer Address</th>
 				<td class="form-input-td"><input autocomplete="off" name="customer-address" type="text" class="form-control" id="customer-address-input" placeholder="Customer Address" required></td>
@@ -152,7 +153,9 @@
 		<tbody id="invoice-form-items-table-body">
 			<tr>
 				<td class="invoice-item-slno">1</td>
-				<td class="form-input-td"><input autocomplete="off" name="invoice-product" type="text" class="form-control product_search_area product_search_input" placeholder="Product"></td>
+				<td class="form-input-td"><input autocomplete="off" name="invoice-product" type="text" class="form-control product_search_area product_search_input" placeholder="Product">
+					<div id="product_search_bar" style="overflow: scroll;"></div>
+				</td>
 				<td class="form-input-td"><input name="invoice-item-code" type="text" class="form-control" placeholder="Item Code"></td>
 				<td class="form-input-td"><input name="invoice-hsn" type="text" class="form-control" placeholder="HSN"></td>
 				<td class="form-input-td"><input name="invoice-unit" type="text" class="form-control" placeholder="Unit"></td>
@@ -194,8 +197,8 @@
 
 
 </div>
-<div id="customer_search_bar"></div>
-<div id="product_search_bar"></div>
+{% comment %} <div id="customer_search_bar"></div> {% endcomment %}
+{% comment %} <div id="product_search_bar"></div> {% endcomment %}
 
 
 {% endblock %}
