@@ -46,6 +46,7 @@ class Vehicle(models.Model):
 class Invoice(models.Model):
     invoice_number = models.IntegerField()
     invoice_date = models.DateField()
+    order_date = models.DateField(default=datetime.now())
     
     invoice_customer = models.ForeignKey(
         'Customer',

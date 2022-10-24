@@ -53,37 +53,7 @@ def login_view(request):
     return render(request, 'gstbillingapp/login.html', context)
 
 
-def signup_view(request):
-    if request.user.is_authenticated:
-        return redirect("invoice_create")
-    context = {}
-    signup_form = UserCreationForm()
-    profile_edit_form = UserProfileForm()
-    context["signup_form"] = signup_form
-    context["profile_edit_form"] = profile_edit_form
 
-    
-    if request.method == "POST":
-        signup_form = UserCreationForm(request.POST)
-        profile_edit_form = UserProfileForm(request.POST)
-        context["signup_form"] = signup_form
-        context["profile_edit_form"] = profile_edit_form
-
-        if signup_form.is_valid():
-            user = signup_form.save()
-        else:
-            context["error_message"] = signup_form.errors
-            return render(request, 'gstbillingapp/signup.html', context)
-        if profile_edit_form.is_valid():
-            userprofile = profile_edit_form.save(commit=False)
-            userprofile.user = user
-            userprofile.save()
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect("invoice_create")
-
-
-
-    return render(request, 'gstbillingapp/signup.html', context)
 
 
 
@@ -152,6 +122,7 @@ def invoice_create(request):
         new_invoice = Invoice(
                               invoice_number=int(invoice_data['invoice-number']),
                               invoice_date=datetime.datetime.strptime(invoice_data['invoice-date'], '%Y-%m-%d'),
+                              order_date=datetime.datetime.strptime(invoice_data['order-date'], '%Y-%m-%d'),
                               invoice_customer=customer, invoice_json=invoice_data_processed_json)
         new_invoice.save()
         print("INVOICE SAVED")
@@ -204,7 +175,6 @@ def invoice_viewer(request, invoice_id):
     context['currency'] = "₹"
     context["total_cartons"] = int(context['invoice_data']['cartons'])+int(context['invoice_data']['bundles'])
     context['total_in_words'] = num2words(format(float(context['invoice_data']['invoice_total_amt_with_gst']), '.2f'))
-    context['user_profile'] = user_profile
     return render(request, 'gstbillingapp/tax_invoice_template.html', context)
 
 

@@ -169,7 +169,9 @@ tr:hover .cut { opacity: 1; }
 		<article style="padding-bottom: 0%; margin-bottom: 0%;">
             
 			<address contenteditable style="width: 40%;">
-				<p style="font-size: medium;" >M/s. {{ invoice_data.customer_name }}<br><br>{{invoice_data.customer_address}} <br> Gst no.- {{invoice_data.customer_gst}} </p>
+				<p style="font-size: small;">Billed to:</p>
+				<p>M/s. {{ invoice_data.customer_name }}</p>
+				<p style="font-size: medium;" >{{invoice_data.customer_address}} <br> Gst no.- {{invoice_data.customer_gst}} </p>
 			</address>
 			<table class="meta" style="padding: 0%; margin-bottom: 0%;">
 				<tr>
@@ -188,7 +190,7 @@ tr:hover .cut { opacity: 1; }
 					<th><span contenteditable>Order No.</span></th>
 					<td><span contenteditable>{{invoice_data.order_number}}</span></td>
                     <th><span contenteditable>Date:</span></th>
-					<td><span contenteditable>{{invoice_data.order_date}}</span></td>
+					<td><span contenteditable>{{invoice.order_date}}</span></td>
 				</tr>
                 <tr>
 					<th><span contenteditable>LR. No.</span></th>
