@@ -15,20 +15,23 @@
 				<th>Invoice Number</th>
 				<th>Date</th>
 				<th>Customer</th>
+				<th>Invoice</th>
+				<th>Signed Invoice</th>
 				<th></th>
 				<th></th>
 				<th></th>
 			</tr>
 		</thead>
-		<tbody class="two-col-form">
+		<tbody class=" ">
 			{% for invoice in invoices %}
 			<tr>
  				<!-- <td>{{invoice.id}}</td> -->
- 				<td>{{invoice.invoice_number}}</td>
+ 				<td width="1%">{{invoice.invoice_number}}</td>
  				<td>{{invoice.invoice_date}}</td>
  				<td>{{invoice.invoice_customer}}</td>
-				 <td width="1%"><a href="{% url 'invoice-download' id=invoice.id %}">Download</a></td>
-				 <td><a href="{% url 'invoice_viewer' invoice.id %}"><button type="button" class="btn btn-primary">View</button></a></td>
+				 <td >  <a href="{% url 'invoice_viewer' invoice.id %}"><button type="button" class="btn btn-primary">View</button></a> <a href="{% url 'invoice-download' id=invoice.id %}" ><button type="button" class="btn btn-outline-primary">Download</button></a></td>
+				 <td >  <a href="{% url 'invoice_scanned' invoice.id %}"><button type="button" class="btn btn-primary">View</button></a> <a href="{% url 'invoice-scanned' id=invoice.id %}" ><button type="button" class="btn btn-outline-primary">Download</button></a></td>
+				 
 				 <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#invoiceDeleteModal" data-invoice-id="{{invoice.id}}" data-invoice-number="{{invoice.invoice_number}}, for {{invoice.invoice_customer}}">Delete</button></td>
 			</tr>
 			{% endfor %}
