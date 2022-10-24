@@ -1,11 +1,14 @@
 import datetime
 import decimal
 import json
+import subprocess
 import num2words
+import pdfkit
+import os
 
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, reverse
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.db.models import Max
@@ -134,14 +137,28 @@ def invoice_create(request):
     return render(request, 'gstbillingapp/invoice_create.html', context)
 
 
-@login_required
+def generate_PDF(request, id):
+    # Use False instead of output path to save pdf to a variable
+
+    # comment the next three lines for running in windows
+    # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
+    # stdout=subprocess.PIPE).communicate()[0].strip()
+    # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+    # comment config=pdf_config when running on local machine------
+    # also tweek the secret key in settings.py to run on local machine
+    pdf = pdfkit.from_url(request.build_absolute_uri(reverse('invoice_viewer', args=[id])), False)#,configuration=pdfkit_config
+    response = HttpResponse(pdf,content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="invoice-{id}.pdf"'
+   
+    return response
+    
+
 def invoices(request):
     context = {}
     context['invoices'] = Invoice.objects.all().order_by('-id')
     return render(request, 'gstbillingapp/invoices.html', context)
 
 
-@login_required
 def invoice_viewer(request, invoice_id):
     def num2words(num):
         num = decimal.Decimal(num)
