@@ -1,12 +1,7 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Invoice</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="license" href="https://www.opensource.org/licenses/mit-license/">
-		<script src="script.js"></script>
-	</head>
-	<body>
+{% extends "gstbillingapp/print_base.html" %}
+
+{% block includecss %}
+
    <style>
     /* reset */
 
@@ -42,20 +37,20 @@ span[contenteditable] { display: inline-block; }
 
 /* table */
 
-table { font-size: 75%; table-layout: fixed; width: 100%; }
+table { font-size: 93%; table-layout: fixed; width: 100%; }
 table { border-collapse: separate; border-spacing: 2px; }
 th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
 th, td { border-radius: 0.25em; border-style: solid; }
 th { background: #EEE; border-color: #BBB; }
-td { border-color: #DDD; }
+td {border-color: #BBB;}
 
 /* page */
 
 html { font: 18px/1 'Open Sans', sans-serif; overflow: auto;  }
-html { background: #FFF; cursor: default; }
+html { background: #FFFFFF; cursor: default; }
 
 body { box-sizing: border-box; height: 11in; margin: 0 auto;  padding-top:0%; width: 9.5in; }
-body { background: #FFFF; border-radius: 1px; }
+body { background: #FFFFFF; border-radius: 1px; }
 
 /* header */
 
@@ -127,8 +122,8 @@ table.balance td { text-align: right; }
 	background-image: -moz-linear-gradient(#00ADEE 5%, #0078A5 100%);
 	background-image: -webkit-linear-gradient(#00ADEE 5%, #0078A5 100%);
 	border-radius: 0.5em;
-	border-color: #0076A3;
-	color: #FFF;
+	border-color: #000000;
+	color: #FFFFFF;
 	cursor: pointer;
 	font-weight: bold;
 	text-shadow: 0 -1px 2px rgba(0,0,0,0.333);
@@ -145,23 +140,32 @@ tr:hover .cut { opacity: 1; }
 
 @media print {
 	* { -webkit-print-color-adjust: exact; }
-	html { background: none; padding: 0; }
-	body { box-shadow: none; margin: 0; }
 	span:empty { display: none; }
 	.add, .cut { display: none; }
+	#printPageButton {display: none;}
+	#cmd {display: none;}
 }
 
-@page { margin: 0; }
+@page  
+{ 
+    size: auto;   /* auto is the initial value */ 
+
+    /* this affects the margin in the printer settings */ 
+    margin: 0mm 15mm 0mm 15mm;  
+}
+</style>
+{% endblock %} 
     
-    
-    </style>
+{% block content %}
+
+<div class="html-content">
 		<header>
 			
 			<br><br><br><br><br><br><br><br><br>
 			
 		</header>
         
-			<h1 style="text-align: center;"><span contenteditable><strong> TAX INVOICE </strong></span></h1>
+			<h5 style="text-align: center;"><span contenteditable><strong> TAX INVOICE </strong></span></h5>
 			
 		
 		<article style="padding-bottom: 0%; margin-bottom: 0%;">
@@ -205,12 +209,12 @@ tr:hover .cut { opacity: 1; }
 			<table class="inventory"style="margin:0 ">
 				<thead>
 					<tr>
-                        <th style="width: 5%;" ><span contenteditable>Sr.No.</span></th>
-                        <th style="width: 48%;"><span contenteditable>Description</span></th>
-                        <th style="width: 8%;"><span contenteditable>HSN</span></th>
-                        <th style="width: 8%;"><span contenteditable>Quantity (Nos)</span></th>
-                        <th style="width: 9%;"><span contenteditable>Rate</span></th>
-                        <th style="width: 7%;" ><span contenteditable>Per</span></th>
+                        <th style="width: 4%;" ><span contenteditable>No.</span></th>
+                        <th style="width: 45%;"><span contenteditable>Description</span></th>
+                        <th style="width: 7%;"><span contenteditable>HSN</span></th>
+                        <th style="width: 7%;"><span contenteditable>Qty (Nos)</span></th>
+                        <th style="width: 8%;"><span contenteditable>Rate</span></th>
+                        <th style="width: 6%;" ><span contenteditable>Per</span></th>
                         <th ><span contenteditable>Total </span></th>
 						
 					</tr>
@@ -299,20 +303,20 @@ tr:hover .cut { opacity: 1; }
 		</article>
         <br>
 
-        <table>
+        <table style="font-size: 85%">
             <tr>
-                <td style="width: 40%;"> <span contenteditable>GST NO:27AAAFT1127D1ZP</span></td>
+                <td style="width: 35%;"> <span contenteditable>GST NO:27AAAFT1127D1ZP</span></td>
                 <td> </td>
                 <td style="width: 32%;"> <span contenteditable></span>Payment Terms : {{invoice_data.payment_terms}}</td>
             </tr>
         </table>
 		<aside >
 			
-			<table>
+			<table style="font-size: 87%">
                 <tr>
-                    <td style="width: 40%;" rowspan="4"><span contenteditable>Terms: <br>  1) Goods once sold will not be taken back. <br> 2)Sellers will not accept any responsibility or admit any claims forshortage of any or damage after thegoods have left their premises. <br>3)Interest at rate 24% will be chargeon all bills not paid within due date.	
+                    <td style="width: 35%;" rowspan="4"><span contenteditable><strong>Terms: </strong> <br>  1) Goods once sold will not be taken back. <br> 2)Sellers will not accept any responsibility or admit any claims forshortage of any or damage after thegoods have left their premises. <br>3)Interest at rate 24% will be charged on all bills not paid within due date.	
                     </span></td>
-                    <td rowspan="4" style="text-align: center;"><span contenteditable > <h2> COMPANY'S BANK DETAILS</h2><br>BANK NAME:BANK OF BARODA <br>A/C NO: 19750200000831<br>BRANCH & IFS CODE:	<br>KURLA 		<br>BARBOKURLAX	<br>	
+                    <td rowspan="4" style="text-align: center;"><span contenteditable > <strong> COMPANY'S BANK DETAILS</strong><br> <br>BANK NAME:BANK OF BARODA <br>A/C NO: 19750200000831<br>BRANCH & IFS CODE:	<br>KURLA 		<br>BARBOKURLAX	<br>	
                     </span></td>
                     <td rowspan="4" style="width: 32%; text-align: right;"><span contenteditable >FOR TARUN ENGINEERING WORKS <br><br><br><br><br><br><br>Partner </span></td>
                    
@@ -320,199 +324,85 @@ tr:hover .cut { opacity: 1; }
                 
             </table>
 		</aside>
+
+		<br>
+	</div>	
+	<button id="cmd" onclick="CreatePDFfromHTML();" class="btn btn-primary d-print-none" >Download</button>
+	
+	<button id="printPageButton" onclick="window.print();" class="btn btn-primary d-print-none">Print Invoice</button>
+
+	<button id="printPageButton" onclick="sb();" class="btn btn-primary d-print-none">Share</button>
+
+
 	</body>
+	{% endblock %}
 
+	{% block includejs %}
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+	<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 <script>
-/* Shivving (IE8 is not supported, but at least it won't look as awful)
-/* ========================================================================== */
-
-(function (document) {
-	var
-	head = document.head = document.getElementsByTagName('head')[0] || document.documentElement,
-	elements = 'article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output picture progress section summary time video x'.split(' '),
-	elementsLength = elements.length,
-	elementsIndex = 0,
-	element;
-
-	while (elementsIndex < elementsLength) {
-		element = document.createElement(elements[++elementsIndex]);
+	function CreatePDFfromHTML() {
+		var HTML_Width = $(".html-content").width();
+		var HTML_Height = $(".html-content").height();
+		var top_left_margin = 30;
+		var PDF_Width = HTML_Width + (top_left_margin * 2);
+		var PDF_Height = (PDF_Width*1.5) + (top_left_margin * 2);
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+	
+		var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+	
+		html2canvas($(".html-content")[0]).then(function (canvas) {
+			var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+			pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+			for (var i = 1; i <= totalPDFPages; i++) { 
+				pdf.addPage(PDF_Width, PDF_Height);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			pdf.save("Invoice-{{invoice.invoice_number}}-tarun.pdf");
+			
+		});
 	}
 
-	element.innerHTML = 'x<style>' +
-		'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}' +
-		'audio[controls],canvas,video{display:inline-block}' +
-		'[hidden],audio{display:none}' +
-		'mark{background:#FF0;color:#000}' +
-	'</style>';
+	function sb(){
+		var HTML_Width = $(".html-content").width();
+		var HTML_Height = $(".html-content").height();
+		var top_left_margin = 30;
+		var PDF_Width = HTML_Width + (top_left_margin * 2);
+		var PDF_Height = (PDF_Width*1.5) + (top_left_margin * 2);
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+	
+		var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+		var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+		html2canvas($(".html-content")[0]).then(function (canvas) {
+			var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			
+			pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+			for (var i = 1; i <= totalPDFPages; i++) { 
+				pdf.addPage(PDF_Width, PDF_Height);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			
+		});
+		const response = pdf
 
-	return head.insertBefore(element.lastChild, head.firstChild);
-})(document);
-
-/* Prototyping
-/* ========================================================================== */
-
-(function (window, ElementPrototype, ArrayPrototype, polyfill) {
-	function NodeList() { [polyfill] }
-	NodeList.prototype.length = ArrayPrototype.length;
-
-	ElementPrototype.matchesSelector = ElementPrototype.matchesSelector ||
-	ElementPrototype.mozMatchesSelector ||
-	ElementPrototype.msMatchesSelector ||
-	ElementPrototype.oMatchesSelector ||
-	ElementPrototype.webkitMatchesSelector ||
-	function matchesSelector(selector) {
-		return ArrayPrototype.indexOf.call(this.parentNode.querySelectorAll(selector), this) > -1;
-	};
-
-	ElementPrototype.ancestorQuerySelectorAll = ElementPrototype.ancestorQuerySelectorAll ||
-	ElementPrototype.mozAncestorQuerySelectorAll ||
-	ElementPrototype.msAncestorQuerySelectorAll ||
-	ElementPrototype.oAncestorQuerySelectorAll ||
-	ElementPrototype.webkitAncestorQuerySelectorAll ||
-	function ancestorQuerySelectorAll(selector) {
-		for (var cite = this, newNodeList = new NodeList; cite = cite.parentElement;) {
-			if (cite.matchesSelector(selector)) ArrayPrototype.push.call(newNodeList, cite);
-		}
-
-		return newNodeList;
-	};
-
-	ElementPrototype.ancestorQuerySelector = ElementPrototype.ancestorQuerySelector ||
-	ElementPrototype.mozAncestorQuerySelector ||
-	ElementPrototype.msAncestorQuerySelector ||
-	ElementPrototype.oAncestorQuerySelector ||
-	ElementPrototype.webkitAncestorQuerySelector ||
-	function ancestorQuerySelector(selector) {
-		return this.ancestorQuerySelectorAll(selector)[0] || null;
-	};
-})(this, Element.prototype, Array.prototype);
-
-/* Helper Functions
-/* ========================================================================== */
-
-function generateTableRow() {
-	var emptyColumn = document.createElement('tr');
-
-	emptyColumn.innerHTML = '<td><a class="cut">-</a><span contenteditable></span></td>' +
-		'<td><span contenteditable></span></td>' +
-		'<td><span data-prefix>$</span><span contenteditable>0.00</span></td>' +
-		'<td><span contenteditable>0</span></td>' +
-		'<td><span data-prefix>$</span><span>0.00</span></td>';
-
-	return emptyColumn;
-}
-
-function parseFloatHTML(element) {
-	return parseFloat(element.innerHTML.replace(/[^\d\.\-]+/g, '')) || 0;
-}
-
-function parsePrice(number) {
-	return number.toFixed(2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
-}
-
-/* Update Number
-/* ========================================================================== */
-
-function updateNumber(e) {
-	var
-	activeElement = document.activeElement,
-	value = parseFloat(activeElement.innerHTML),
-	wasPrice = activeElement.innerHTML == parsePrice(parseFloatHTML(activeElement));
-
-	if (!isNaN(value) && (e.keyCode == 38 || e.keyCode == 40 || e.wheelDeltaY)) {
-		e.preventDefault();
-
-		value += e.keyCode == 38 ? 1 : e.keyCode == 40 ? -1 : Math.round(e.wheelDelta * 0.025);
-		value = Math.max(value, 0);
-
-		activeElement.innerHTML = wasPrice ? parsePrice(value) : value;
+		const pdf1 = new File([pdf], "invoice-{{invoice.invoice_number}}.pdf" , { type: "application/pdf" });
+		const files = [pdf1];
+		if (navigator.canShare({ files })){
+			navigator.share({ files })
+		} ;
 	}
+	
+	$(document).ready(function () {
+		
+	})
 
-	updateInvoice();
-}
-
-
-function onContentLoad() {
-	updateInvoice();
-
-	var
-	input = document.querySelector('input'),
-	image = document.querySelector('img');
-
-	function onClick(e) {
-		var element = e.target.querySelector('[contenteditable]'), row;
-
-		element && e.target != document.documentElement && e.target != document.body && element.focus();
-
-		if (e.target.matchesSelector('.add')) {
-			document.querySelector('table.inventory tbody').appendChild(generateTableRow());
-		}
-		else if (e.target.className == 'cut') {
-			row = e.target.ancestorQuerySelector('tr');
-
-			row.parentNode.removeChild(row);
-		}
-
-		updateInvoice();
-	}
-
-	function onEnterCancel(e) {
-		e.preventDefault();
-
-		image.classList.add('hover');
-	}
-
-	function onLeaveCancel(e) {
-		e.preventDefault();
-
-		image.classList.remove('hover');
-	}
-
-	function onFileInput(e) {
-		image.classList.remove('hover');
-
-		var
-		reader = new FileReader(),
-		files = e.dataTransfer ? e.dataTransfer.files : e.target.files,
-		i = 0;
-
-		reader.onload = onFileLoad;
-
-		while (files[i]) reader.readAsDataURL(files[i++]);
-	}
-
-	function onFileLoad(e) {
-		var data = e.target.result;
-
-		image.src = data;
-	}
-
-	if (window.addEventListener) {
-		document.addEventListener('click', onClick);
-
-		document.addEventListener('mousewheel', updateNumber);
-		document.addEventListener('keydown', updateNumber);
-
-		document.addEventListener('keydown', updateInvoice);
-		document.addEventListener('keyup', updateInvoice);
-
-		input.addEventListener('focus', onEnterCancel);
-		input.addEventListener('mouseover', onEnterCancel);
-		input.addEventListener('dragover', onEnterCancel);
-		input.addEventListener('dragenter', onEnterCancel);
-
-		input.addEventListener('blur', onLeaveCancel);
-		input.addEventListener('dragleave', onLeaveCancel);
-		input.addEventListener('mouseout', onLeaveCancel);
-
-		input.addEventListener('drop', onFileInput);
-		input.addEventListener('change', onFileInput);
-	}
-}
-
-window.addEventListener && document.addEventListener('DOMContentLoaded', onContentLoad);
 
 
 
 </script>
-</html>
+
+{% endblock %}
