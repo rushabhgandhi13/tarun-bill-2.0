@@ -137,54 +137,54 @@ def invoice_create(request):
     return render(request, 'gstbillingapp/invoice_create.html', context)
 
 
-def generate_PDF(request, id):
-    # Use False instead of output path to save pdf to a variable
+# def generate_PDF(request, id):
+#     # Use False instead of output path to save pdf to a variable
 
-    # comment the next three lines for running in windows
-    # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
-    # stdout=subprocess.PIPE).communicate()[0].strip()
-    # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
-    # comment config=pdf_config when running on local machine------
-    # also tweek the secret key in settings.py to run on local machine
-    invoice_obj = get_object_or_404(Invoice, id=id)
-    innumber = invoice_obj.invoice_number
-    pdf = pdfkit.from_url(request.build_absolute_uri(reverse('invoice_viewer', args=[id])), False)#,configuration=pdfkit_config
-    response = HttpResponse(pdf,content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="invoice-{innumber}-tarun.pdf"'
+#     # comment the next three lines for running in windows
+#     # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
+#     # stdout=subprocess.PIPE).communicate()[0].strip()
+#     # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+#     # comment config=pdf_config when running on local machine------
+#     # also tweek the secret key in settings.py to run on local machine
+#     invoice_obj = get_object_or_404(Invoice, id=id)
+#     innumber = invoice_obj.invoice_number
+#     pdf = pdfkit.from_url(request.build_absolute_uri(reverse('invoice_viewer', args=[id])), False)#,configuration=pdfkit_config
+#     response = HttpResponse(pdf,content_type='application/pdf')
+#     response['Content-Disposition'] = f'attachment; filename="invoice-{innumber}-tarun.pdf"'
    
-    return response
+#     return response
 
-def generate_invoice(request, id):
-    # Use False instead of output path to save pdf to a variable
+# def generate_invoice(request, id):
+#     # Use False instead of output path to save pdf to a variable
 
-    # comment the next three lines for running in windows
-    # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
-    # stdout=subprocess.PIPE).communicate()[0].strip()
-    # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
-    # comment config=pdf_config when running on local machine------
-    # also tweek the secret key in settings.py to run on local machine
-    invoice_obj = get_object_or_404(Invoice, id=id)
-    innumber = invoice_obj.invoice_number
-    pdf = pdfkit.from_url(request.build_absolute_uri(reverse('invoice_scanned', args=[id])), False)#,configuration=pdfkit_config
-    response = HttpResponse(pdf,content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="invoice-{innumber}.pdf"'
+#     # comment the next three lines for running in windows
+#     # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
+#     # stdout=subprocess.PIPE).communicate()[0].strip()
+#     # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+#     # comment config=pdf_config when running on local machine------
+#     # also tweek the secret key in settings.py to run on local machine
+#     invoice_obj = get_object_or_404(Invoice, id=id)
+#     innumber = invoice_obj.invoice_number
+#     pdf = pdfkit.from_url(request.build_absolute_uri(reverse('invoice_scanned', args=[id])), False)#,configuration=pdfkit_config
+#     response = HttpResponse(pdf,content_type='application/pdf')
+#     response['Content-Disposition'] = f'attachment; filename="invoice-{innumber}.pdf"'
    
-    return response
+#     return response
 
-def generate_challan(request, id):
-    # Use False instead of output path to save pdf to a variable
+# def generate_challan(request, id):
+#     # Use False instead of output path to save pdf to a variable
 
-    # comment the next three lines for running in windows
-    # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
-    # stdout=subprocess.PIPE).communicate()[0].strip()
-    # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
-    # comment config=pdf_config when running on local machine------
-    # also tweek the secret key in settings.py to run on local machine
-    invoice_obj = get_object_or_404(Invoice, id=id)
-    innumber = invoice_obj.invoice_number
-    pdf = pdfkit.from_url(request.build_absolute_uri(reverse('challan_viewer', args=[id])), False)#,configuration=pdfkit_config
-    response = HttpResponse(pdf,content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="challan-{innumber}.pdf"'
+#     # comment the next three lines for running in windows
+#     # WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_PATH', '/app/bin/wkhtmltopdf')],
+#     # stdout=subprocess.PIPE).communicate()[0].strip()
+#     # pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+#     # comment config=pdf_config when running on local machine------
+#     # also tweek the secret key in settings.py to run on local machine
+#     invoice_obj = get_object_or_404(Invoice, id=id)
+#     innumber = invoice_obj.invoice_number
+#     pdf = pdfkit.from_url(request.build_absolute_uri(reverse('challan_viewer', args=[id])), False)#,configuration=pdfkit_config
+#     response = HttpResponse(pdf,content_type='application/pdf')
+#     response['Content-Disposition'] = f'attachment; filename="challan-{innumber}.pdf"'
    
     return response
     
